@@ -1,4 +1,3 @@
-# Repository
+Update of 3 files of the iron car project in order to add a new feature called "classifciation training" 
 
-Update of ironcar code in order to add "classifcation training" mode.
-Only files modified are there.  
+
