@@ -45,7 +45,7 @@ class Ironcar():
         self.dist = 100
         self.n_img = 0
         self.save_number = 0
-
+        self.classification = None
         self.verbose = True
         self.mode_function = self.default_call
 
@@ -303,19 +303,15 @@ class Ironcar():
 
         self.n_img += 1
 
-    def classification(self, img, prediction):   #CHANGE
-        """Saves the image of the picamera with the chosen direction of the car."""
- 
-        image_name = '_'.join(['frame', str(self.n_img), 'gas',
-                               str(self.curr_gas), 'dir', str(self.curr_dir)])
-        image_name += '.jpg'
-        image_name = os.path.join(self.save_folder, image_name)
- 
-        img_arr = np.array(img[20:, :, :], copy=True)
-        img_arr = PIL_convert(img_arr)
-        img_arr.save(image_name)
- 
-        self.n_img += 1
+    def switch_classification(self, classification):
+        """
+                - classification
+        """
+         
+        self.classification = classification
+        return self.classification 
+
+        
   
     def switch_mode(self, new_mode):
         """Switches the mode between:
@@ -356,9 +352,9 @@ class Ironcar():
             self.mode = 'training'
             self.mode_function = self.training
 
-        elif new_mode == "classification":            # MAJ CLASSIFICATION ------------------------
-            self.mode = 'classification'              #
-            self.mode_function = self.classification  #
+        #elif new_mode == "classification":            # MAJ CLASSIFICATION ------------------------
+         #   self.mode = 'classification'              #
+          #  self.mode_function = self.classification  #
         else:
             self.mode = 'resting'
             self.mode_function = self.default_call
@@ -622,8 +618,9 @@ class Ironcar():
         # Only used in training mode
         from datetime import datetime
 
+        select_classification(self,)
         ct = datetime.now().strftime('%Y_%m_%d_%H_%M')
-        self.save_folder = os.path.join(config['datasets_path'], classification) #classification string whose value is the direction from the socket CLASSIFICATION
+        self.save_folder = os.path.join(config['datasets_path'], self.classification) #classification string whose value is the direction from the socket CLASSIFICATION
         if not os.path.exists(self.save_folder):
             os.makedirs(self.save_folder)
 
