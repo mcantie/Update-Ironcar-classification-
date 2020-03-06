@@ -307,9 +307,8 @@ class Ironcar():
         """
                 - classification
         """
-         
+        socketio.emit(classification)
         self.classification = classification
-        return self.classification 
 
         
   
@@ -351,10 +350,6 @@ class Ironcar():
         elif new_mode == "training":
             self.mode = 'training'
             self.mode_function = self.training
-
-        #elif new_mode == "classification":            # MAJ CLASSIFICATION ------------------------
-         #   self.mode = 'classification'              #
-          #  self.mode_function = self.classification  #
         else:
             self.mode = 'resting'
             self.mode_function = self.default_call
